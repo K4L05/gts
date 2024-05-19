@@ -1,13 +1,50 @@
 """
 Title:      Graphical Ticketing System
 Author:     Kalos Robinson-Frani
-Date:       14/05/24
-Version:    1.0
+Date:       16/05/24
+Version:    1.1
 Desc:       This program is a user interface for ordering tickets, and calculating the total price of selected tickets.
 """
 
 # Importing libraries
 from tkinter import *
+
+class adult_tickets:
+    def __init__(self) -> None:
+        self.quantity = input_adult_ticket.get()
+        self.cost = ticket_definitions["adult"]
+
+    
+    def calc_subtotal(self):
+        return self.quantity * self.cost
+    
+    def tickets(self):
+        return self.quantity
+
+class child_tickets:
+    def __init__(self) -> None:
+        self.quantity = input_child_ticket.get()
+        self.cost = ticket_definitions["child"]
+    
+    def calc_subtotal(self):
+        return self.quantity * self.cost
+    
+    def tickets(self):
+        return self.quantity
+    
+
+class stdsen_tickets:
+    def __init__(self) -> None:
+        self.quantity = input_stdsen_ticket.get()
+        self.cost = ticket_definitions["student/senior"]
+    
+    def calc_subtotal(self):
+        return self.quantity * self.cost
+    
+    def tickets(self):
+        return self.quantity
+    
+
 
 ticket_definitions = {
     "adult": 15,
@@ -27,10 +64,14 @@ output_total_calc = IntVar()
 output_total_calc.set("Total: $0")
 
 def calculate():
-    total_tickets = input_adult_ticket.get() + input_child_ticket.get() + input_stdsen_ticket.get()
+    at = adult_tickets()
+    ct = child_tickets()
+    st = stdsen_tickets()
+
+    total_tickets = at.tickets() + ct.tickets() + st.tickets()
 
     if total_tickets <= 100:
-        total = ((input_adult_ticket.get()*ticket_definitions["adult"]) + (input_child_ticket.get()*ticket_definitions["child"]) + (input_stdsen_ticket.get()*ticket_definitions["student/senior"]))
+        total = (at.calc_subtotal() + ct.tickets() + st.calc_subtotal())
         output_total_calc.set(f"Total: ${total}")
     
     else:
